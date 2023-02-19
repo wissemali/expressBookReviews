@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const session = require('express-session')
 const customer_routes = require('./router/auth_users.js').authenticated;
 const genl_routes = require('./router/general.js').general;
+const Promise = require('./router/Promise.js')
 
 const app = express();
 
@@ -11,7 +12,6 @@ app.use(express.json());
 app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUninitialized: true}))
 
 app.use("/customer/auth/*", function auth(req,res,next){
-    console.log("WIWI CACA == ", req.headers.authorization)
     if(req.headers.authorization) {
         token = req.headers.authorization.split(" ")[1];
         console.log("token==",req.headers.authorization)
